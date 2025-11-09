@@ -295,32 +295,11 @@ transactions = client.get_plaid_transactions(
 4. **Credit Scoring**: Automated credit score calculation
 5. **Regulatory Reporting**: Generate compliance reports
 
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 👥 Authors
-
-- Yadav Anuj Kumar
-
-## 🙏 Acknowledgments
-
-- Apache Spark for stream processing
-- MLflow for ML lifecycle management
-- Dash/Plotly for interactive visualizations
-- Kafka for real-time data streaming
-
-## 📞 Support
-
-For issues, questions, or contributions, please open an issue on GitHub.
 
 ## 🔮 Future Enhancements
 
@@ -336,5 +315,3 @@ For issues, questions, or contributions, please open an issue on GitHub.
 - [ ] Implement distributed training with Spark MLlib
 
 ---
-
-**Built with ❤️ for the data engineering community**
