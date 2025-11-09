@@ -1,0 +1,95 @@
+# Configuration Settings for Real-Time Loan Default Risk Pipeline
+
+# Kafka Configuration
+kafka:
+  bootstrap_servers: "localhost:9092"
+  topics:
+    loan_applications: "loan-applications"
+    transactions: "transactions"
+    repayments: "repayments"
+  consumer_group: "loan-risk-consumer"
+  auto_offset_reset: "earliest"
+
+# AWS Kinesis Configuration
+kinesis:
+  region: "us-east-1"
+  stream_name: "loan-data-stream"
+  shard_count: 2
+
+# API Configuration
+apis:
+  razorpayx:
+    base_url: "https://api.razorpay.com/v1"
+    timeout: 30
+  plaid:
+    base_url: "https://production.plaid.com"
+    timeout: 30
+  
+# Spark Configuration
+spark:
+  app_name: "LoanDefaultRiskPipeline"
+  master: "local[*]"
+  checkpoint_location: "/tmp/spark-checkpoints"
+  output_mode: "append"
+  trigger_interval: "30 seconds"
+
+# Storage Configuration
+storage:
+  snowflake:
+    account: "${SNOWFLAKE_ACCOUNT}"
+    user: "${SNOWFLAKE_USER}"
+    password: "${SNOWFLAKE_PASSWORD}"
+    warehouse: "COMPUTE_WH"
+    database: "LOAN_RISK_DB"
+    schema: "PUBLIC"
+  
+  bigquery:
+    project_id: "${GCP_PROJECT_ID}"
+    dataset: "loan_risk_dataset"
+    credentials_path: "${GCP_CREDENTIALS_PATH}"
+  
+  s3:
+    bucket: "loan-risk-data"
+    region: "us-east-1"
+    raw_prefix: "raw/"
+    processed_prefix: "processed/"
+
+# MLflow Configuration
+mlflow:
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "loan-default-prediction"
+  model_registry: "models"
+
+# Airflow Configuration
+airflow:
+  dag_schedule: "0 */6 * * *"  # Every 6 hours
+  default_args:
+    owner: "data-engineering"
+    retries: 3
+    retry_delay_minutes: 5
+
+# Feature Engineering Configuration
+features:
+  risk_metrics:
+    - debt_to_income_ratio
+    - loan_to_value_ratio
+    - credit_utilization
+    - payment_delay_days
+    - default_probability
+  
+  aggregation_windows:
+    - "1 day"
+    - "7 days"
+    - "30 days"
+
+# Dashboard Configuration
+dashboard:
+  refresh_interval: 30  # seconds
+  port: 8050
+  host: "0.0.0.0"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "json"
+  log_dir: "logs/"
